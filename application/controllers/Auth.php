@@ -21,8 +21,7 @@ class Auth extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-
-		// Load url helper
+		$this->load->model('users');
 		$this->load->helper('url');
 		$this->load->helper('form');
 		parse_str($_SERVER['QUERY_STRING'], $_GET); 
@@ -33,10 +32,29 @@ class Auth extends CI_Controller {
 	}
 
     public function register(){
-        echo "Register";
+		if ($this->input->server('REQUEST_METHOD') === 'GET') {
+			$this->load->view('register');
+		 } else if ($this->input->server('REQUEST_METHOD') === 'POST') {
+			if($this->input->post('name') && $this->input->post('password') && $this->input->post('confirmation_password')){
+				$name = $this->input->post('name');
+				$password = $this->input->post('password');
+				$confirmationPassword = $this->input->post('confirmation_password');
+				$response = $this->users->register($name, $password, $confirmationPassword);
+				echo $response['message'];
+			}
+		 }
     }
 
     public function login(){
-		$this->load->view('login');
+		if ($this->input->server('REQUEST_METHOD') === 'GET') {
+			$this->load->view('login');
+		 } else if ($this->input->server('REQUEST_METHOD') === 'POST') {
+			if($this->input->post('name') && $this->input->post('password')){
+				$name = $this->input->post('name');
+				$password = $this->input->post('password');
+				$response = $this->users->login($name, $password);
+				echo $response['message'];
+			}
+		 }
     }
 }

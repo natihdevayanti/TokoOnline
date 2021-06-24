@@ -10,9 +10,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title>Genicine</title>
 </head>
 <body>
-    <h1>LOGIN</h1>
-    <a href="<?php echo base_url()?>auth/register">Go To Register</a>
-    <?php echo form_open('auth/login'); ?>
+    <h1>REGISTER</h1>
+    <a href="<?php echo base_url()?>auth/login">Go To Login</a>
+    <?php echo form_open('auth/register'); ?>
     <div>
 		<label for="name">Name</label>
 		<input id="name" type="text" name="name" class="form-control" required>
@@ -22,7 +22,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<input id="password" type="password" name="password" class="form-control" required>
     </div>
     <div>
-        <input type="submit" value="Login">
+		<label for="repeat-password">Repeat Password</label>
+		<input id="repeat-password" type="password" name="confirmation_password" class="form-control" required>
+    </div>
+    <div>
+        <input type="submit" value="Register">
     </div>
 
     </form>
