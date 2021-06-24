@@ -24,6 +24,7 @@ class Auth extends CI_Controller {
 		$this->load->model('users');
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->library('session');
 		parse_str($_SERVER['QUERY_STRING'], $_GET); 
 	}
 
@@ -46,15 +47,30 @@ class Auth extends CI_Controller {
     }
 
     public function login(){
+		if($this->session->has_userdata('isLoggedin') && $this->session->isLoggedin){
+			redirect('/');
+		}
 		if ($this->input->server('REQUEST_METHOD') === 'GET') {
 			$this->load->view('login');
 		 } else if ($this->input->server('REQUEST_METHOD') === 'POST') {
 			if($this->input->post('name') && $this->input->post('password')){
-				$name = $this->input->post('name');
+				$username = $this->input->post('name');
 				$password = $this->input->post('password');
-				$response = $this->users->login($name, $password);
-				echo $response['message'];
+				$response = $this->users->login($username, $password);
+				if($response['status'] === 'OK'){
+					$this->session->isLoggedin = true;
+					$this->session->username = $username;
+					redirect('/', true);
+				}else{
+					$this->load->view('login');
+				}
 			}
 		 }
     }
+
+	public function logout(){
+		$this->session->unset_userdata('isLoggedin');
+		$this->session->unset_userdata('username');
+		redirect('auth/login', true);
+	}
 }

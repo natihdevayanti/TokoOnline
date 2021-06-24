@@ -25,10 +25,18 @@ class Index extends CI_Controller {
 		// Load url helper
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->library('session');
 		parse_str($_SERVER['QUERY_STRING'], $_GET); 
 	}
 
 	public function index() {
-        redirect('auth/login', true);
+		if($this->session->has_userdata('isLoggedin') && $this->session->isLoggedin){
+			$data = array(
+				'username'=>$this->session->username
+			);
+			$this->load->view('dashboard', $data);
+		}else{
+			redirect('auth/login', true);
+		}
 	}
 }
