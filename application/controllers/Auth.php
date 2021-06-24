@@ -29,7 +29,7 @@ class Auth extends CI_Controller {
 	}
 
 	public function index() {
-		$this->load->view('login');
+        redirect('/login', true);
 	}
 
     public function register(){
@@ -37,6 +37,6 @@ class Auth extends CI_Controller {
     }
 
     public function login(){
-        echo "Login";
+		$this->load->view('login');
     }
 }
