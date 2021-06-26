@@ -4,6 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends MY_Controller {
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function index($page = null)
     {
         $data['title'] = 'Homepage';
@@ -20,7 +25,6 @@ class Home extends MY_Controller {
         $data['total_rows'] = $this->home->where('product.is_available', 1)->count();
         $data['pagination'] = $this->home->makePagination(base_url('home'), 2, $data['total_rows']);
         $data['page'] = 'pages/home/index';     // Mengarahkan halaman
-
         $this->view($data);
     }
 }

@@ -4,22 +4,26 @@ $success    = $this->session->flashdata('success');
 $error      = $this->session->flashdata('error');
 $warning    = $this->session->flashdata('warning');
 
+
 if ($success) {
     $alert_status   = 'alert-success';
     $status         = 'Success!';
     $message        = $success;
+    unset($_SESSION['success']);
 }
 
 if ($error) {
     $alert_status   = 'alert-danger';
     $status         = 'Error!';
     $message        = $error;
+    unset($_SESSION['error']);
 }
 
 if ($warning) {
     $alert_status   = 'alert-warning';
     $status         = 'Warning!';
     $message        = $warning;
+    unset($_SESSION['warning']);
 }
 
 if ($success || $error || $warning) : ?>
