@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <p>Nama: <?= $content->name ?></p>
                             <p>Email: <?= $content->email ?></p>
-                            <a href="<?= base_url("profile/update/$content->id") ?>" class="btn" style="background-color: #fb607f;">Edit</a>
+                            <a href="<?= base_url("profile/update/$content->id") ?>" class="btn" style="background-color: #fb607f;color:#000000;">Edit</a>
                         </div>
                     </div>
                 </div>
